@@ -55,37 +55,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Edit Task</h1>
 
-    <p class="error"><?= $error ?></p>
+    <?php if ($error): ?>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
     <form method="post">
         <label>Title</label>
         <input type="text" name="title"
-               value="<?= htmlspecialchars($task["title"]) ?>">
+               value="<?= htmlspecialchars($task["title"]) ?>" required>
 
         <label>Category</label>
         <input type="text" name="category"
-               value="<?= htmlspecialchars($task["category"]) ?>">
+               value="<?= htmlspecialchars($task["category"]) ?>" required>
 
         <label>Priority</label>
         <select name="priority">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+            <option value="Low" <?= $task["priority"] === "Low" ? "selected" : "" ?>>Low</option>
+            <option value="Medium" <?= $task["priority"] === "Medium" ? "selected" : "" ?>>Medium</option>
+            <option value="High" <?= $task["priority"] === "High" ? "selected" : "" ?>>High</option>
         </select>
 
         <label>Due Date</label>
         <input type="date" name="due_date"
-               value="<?= htmlspecialchars($task["due_date"]) ?>">
+               value="<?= htmlspecialchars($task["due_date"]) ?>" required>
 
         <label>
             <input type="checkbox" name="completed"
                 <?= $task["completed"] ? "checked" : "" ?>>
-            Completed
+            <span>Completed</span>
         </label>
 
         <button type="submit">Update</button>
     </form>
 
-    <a href="index.php">Back</a>
+    <a href="index.php" class="back-link">Back</a>
 </body>
 </html>

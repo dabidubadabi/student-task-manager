@@ -39,14 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Add Task</h1>
 
-    <p class="error"><?= $error ?></p>
+    <?php if ($error): ?>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
     <form method="post">
         <label>Title</label>
-        <input type="text" name="title">
+        <input type="text" name="title" required>
 
         <label>Category</label>
-        <input type="text" name="category">
+        <input type="text" name="category" required>
 
         <label>Priority</label>
         <select name="priority">
@@ -56,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <label>Due Date</label>
-        <input type="date" name="due_date">
+        <input type="date" name="due_date" required>
 
         <button type="submit">Save</button>
     </form>
 
-    <a href="index.php">Back</a>
+    <a href="index.php" class="back-link">Back</a>
 </body>
 </html>
